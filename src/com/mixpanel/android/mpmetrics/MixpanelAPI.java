@@ -1184,7 +1184,7 @@ public class MixpanelAPI {
                 : Build.MANUFACTURER);
         // ret.put("brand", Build.BRAND == null ? "UNKNOWN" : Build.BRAND);
         ret.put("deviceModel", Build.MODEL == null ? "UNKNOWN" : Build.MODEL);
-        ret.put("deviceId", mSystemInformation.getDeviceId());
+//        ret.put("deviceId", mSystemInformation.getDeviceId());
 
         DisplayMetrics displayMetrics = mSystemInformation.getDisplayMetrics();
         // ret.put("screenDpi", displayMetrics.densityDpi);
