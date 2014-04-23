@@ -96,7 +96,7 @@ import java.util.*;
 public class MixpanelAPI {
     public static final String VERSION = "3.3.0.1";
     public static final String RAKE_VERSION = "0.5.0";
-    public static final String CLIENT_VERSION = "0.3.2";
+    public static final String CLIENT_VERSION = "0.3.3";
 
     private boolean isDevServer = false;
 
@@ -311,8 +311,8 @@ public class MixpanelAPI {
 
             JSONObject dataObj = new JSONObject();
             dataObj.put("token", mToken);
-            dataObj.put("baseTime", baseTime);
-            dataObj.put("localTime", localTime);
+            dataObj.put("base_time", baseTime);
+            dataObj.put("local_time", localTime);
 
 
             JSONObject propertiesObj = new JSONObject();
@@ -341,8 +341,8 @@ public class MixpanelAPI {
                 }
             }
 
-            propertiesObj.put("baseTime", baseTime);
-            propertiesObj.put("localTime", localTime);
+            propertiesObj.put("base_time", baseTime);
+            propertiesObj.put("local_time", localTime);
 
             // set dataObj
             dataObj.put("properties", propertiesObj);
@@ -352,7 +352,7 @@ public class MixpanelAPI {
                 if (this.isDevServer) {
 
                     StringBuilder log = new StringBuilder();
-                    Log.d("fullLog", propertiesObj.toString());
+//                    Log.d("fullLog", propertiesObj.toString());
 
                     JSONArray schemaOrder = propertiesObj.getJSONArray("_$ssSchemaOrder");
                     String schemaId = (String) propertiesObj.get("_$ssSchemaId");
@@ -1172,24 +1172,24 @@ public class MixpanelAPI {
     private JSONObject getDefaultEventProperties() throws JSONException {
         JSONObject ret = new JSONObject();
 
-        ret.put("rakeLib", "android");
-        ret.put("rakeLibVersion", "r" + RAKE_VERSION + "_c" + CLIENT_VERSION);
+        ret.put("rake_lib", "android");
+        ret.put("rake_lib_version", "r" + RAKE_VERSION + "_c" + CLIENT_VERSION);
 
         // For querying together with data from other libraries
-        ret.put("osName", "Android");
-        ret.put("osVersion", Build.VERSION.RELEASE == null ? "UNKNOWN"
+        ret.put("os_name", "Android");
+        ret.put("os_version", Build.VERSION.RELEASE == null ? "UNKNOWN"
                 : Build.VERSION.RELEASE);
 
         ret.put("manufacturer", Build.MANUFACTURER == null ? "UNKNOWN"
                 : Build.MANUFACTURER);
         // ret.put("brand", Build.BRAND == null ? "UNKNOWN" : Build.BRAND);
-        ret.put("deviceModel", Build.MODEL == null ? "UNKNOWN" : Build.MODEL);
+        ret.put("device_model", Build.MODEL == null ? "UNKNOWN" : Build.MODEL);
 //        ret.put("deviceId", mSystemInformation.getDeviceId());
 
         DisplayMetrics displayMetrics = mSystemInformation.getDisplayMetrics();
         // ret.put("screenDpi", displayMetrics.densityDpi);
-        ret.put("screenHeight", displayMetrics.heightPixels);
-        ret.put("screenWidth", displayMetrics.widthPixels);
+        ret.put("screen_height", displayMetrics.heightPixels);
+        ret.put("screen_width", displayMetrics.widthPixels);
         StringBuilder resolutionBuilder = new StringBuilder();
         resolutionBuilder.append(displayMetrics.widthPixels);
         resolutionBuilder.append("*");
@@ -1199,9 +1199,9 @@ public class MixpanelAPI {
         String applicationVersionName = mSystemInformation.getAppVersionName();
 
         if (null != applicationVersionName) {
-            ret.put("appVersion", applicationVersionName);
+            ret.put("app_version", applicationVersionName);
         } else {
-            ret.put("appVersion", "UNKNOWN");
+            ret.put("app_version", "UNKNOWN");
         }
 
         // Integer applicationVersionCode =
@@ -1228,23 +1228,23 @@ public class MixpanelAPI {
 
         String carrier = mSystemInformation.getCurrentNetworkOperator();
         if (null != carrier && carrier.length() > 0) {
-            ret.put("carrierName", carrier);
+            ret.put("carrier_name", carrier);
         } else {
-            ret.put("carrierName", "UNKNOWN");
+            ret.put("carrier_name", "UNKNOWN");
         }
 
         Boolean isWifi = mSystemInformation.isWifiConnected();
         if (null != isWifi) {
             if (isWifi.booleanValue()) {
-                ret.put("networkType", "WIFI");
+                ret.put("network_type", "WIFI");
             } else {
-                ret.put("networkType", "NOT WIFI");
+                ret.put("network_type", "NOT WIFI");
             }
         } else {
-            ret.put("networkType", "UNKNOWN");
+            ret.put("network_type", "UNKNOWN");
         }
 
-        ret.put("languageCode", mContext.getResources().getConfiguration().locale.getCountry());
+        ret.put("language_code", mContext.getResources().getConfiguration().locale.getCountry());
 
         // MDN
 //		String permission = "android.permission.READ_PHONE_STATE";
